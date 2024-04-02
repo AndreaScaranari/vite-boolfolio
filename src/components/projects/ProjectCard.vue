@@ -41,7 +41,9 @@ export default {
             <small>Pubblicato il {{ publicationDate }}</small>
         </div>
         <div class="card-footer d-flex justify-content-center">
-            <a href="#" class="btn btn-primary ">Scopri di più</a>
+            <RouterLink class="btn btn-primary" :to="{ name: 'project-detail', params: { id: project.id } }">Scopri di
+                più
+            </RouterLink>
         </div>
     </div>
 </template>
