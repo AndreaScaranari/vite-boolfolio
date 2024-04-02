@@ -9,16 +9,21 @@ export default {
     name: 'vite-boolfoglio',
     components: { AppHeader, ProjectList, AppAlert },
     data: () => ({
-        projects: [],
+        projects: {
+            data: [],
+            link: [],
+        },
         isLoading: false,
         isAlertOpen: false,
     }),
     methods: {
-        fetchProjects() {
+        fetchProjects(endpoint) {
+            if (!endpoint) endpoint = 'http://localhost:8000/api/projects/';
             this.isLoading = true;
             axios.get(endpoint).then(res => {
-                // console.log(res.data);
-                this.projects = res.data;
+                const { data, links } = res.data;
+                this.projects = { data, links };
+
                 this.isAlertOpen = false;
             }).catch(err => {
                 console.error(err);
@@ -45,11 +50,19 @@ export default {
             <h1 class="text-center py-3">TEST</h1>
             <AppAlert :show="isAlertOpen" @close="closeErrorAlert" />
             <AppLoader v-if="isLoading" />
-            <ProjectList v-else :projects="projects" />
+            <ProjectList v-else :projects="projects.data" />
         </main>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li v-for="link in projects.links" :key="link.label" class="page-item">
+                    <button class="page-link" :disabled="!link.url"
+                        :class="{ 'active': link.active, 'disabled': !link.url }" v-html="link.label"
+                        @click="fetchProjects(link.url)"></button>
+                </li>
+            </ul>
+        </nav>
     </div>
-
-
 </template>
 
 <style></style>
