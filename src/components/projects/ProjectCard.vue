@@ -1,7 +1,7 @@
 <script>
 export default {
     name: 'ProjectCard',
-    props: { project: Object },
+    props: { project: Object, isDetail: Boolean },
     computed: {
         abstract() {
             const abstract = this.project.content.slice(0, 200);
@@ -34,13 +34,13 @@ export default {
         </div>
         <div class="card-body clearfix">
             <img v-if="project.image" :src="project.image" :alt="project.title" class="img-fluid float-start me-3">
-            <p class="card-text">{{ abstract }}</p>
+            <p class="card-text">{{ isDetail ? project.content : abstract }}</p>
         </div>
         <div class="d-flex justify-content-between mx-3">
             <address> By {{ project.author ? project.author.name : 'Anonimo' }}</address>
             <small>Pubblicato il {{ publicationDate }}</small>
         </div>
-        <div class="card-footer d-flex justify-content-center">
+        <div class="card-footer d-flex justify-content-center" v-if="!isDetail">
             <RouterLink class="btn btn-primary" :to="{ name: 'project-detail', params: { id: project.id } }">Scopri di
                 più
             </RouterLink>

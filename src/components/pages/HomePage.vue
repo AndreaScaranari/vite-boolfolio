@@ -47,7 +47,7 @@ export default {
     <AppAlert :show="isAlertOpen" @close="closeErrorAlert" />
     <AppLoader v-if="isLoading" />
     <div v-else>
-        <ProjectList :projects="projects.data" />
+        <ProjectList :projects="projects.data" :isDetail="false" />
 
         <!-- BasePagination -->
         <nav aria-label="Page navigation example">
