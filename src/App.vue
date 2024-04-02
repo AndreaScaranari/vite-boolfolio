@@ -12,8 +12,7 @@ export default {
 <template>
     <AppHeader />
     <main class="container">
-        <HomePage />
-        <!-- <ContactUsPage /> -->
+        <RouterView />
     </main>
 </template>
 
