@@ -8,13 +8,19 @@ export default {
     name: 'vite-boolfoglio',
     components: { AppHeader, ProjectList },
     data: () => ({
-        projects: []
+        projects: [],
+        isLoading: false,
     }),
     methods: {
         fetchProjects() {
+            this.isLoading = true;
             axios.get(endpoint).then(res => {
                 // console.log(res.data);
                 this.projects = res.data;
+            }).catch(err => {
+                console.error(err);
+            }).then(() => {
+                this.isLoading = false;
             })
         }
     },
@@ -29,10 +35,12 @@ export default {
         <AppHeader />
         <main>
             <h1 class="text-center py-3">TEST</h1>
-
-            <ProjectList :projects="projects" />
+            <AppLoader v-if="isLoading" />
+            <ProjectList v-else :projects="projects" />
         </main>
     </div>
+
+
 </template>
 
 <style></style>

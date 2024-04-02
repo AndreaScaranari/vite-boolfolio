@@ -15,7 +15,6 @@ export default {
         <h4 v-else>Non ci sono progetti da mostrare</h4>
     </section>
 
-    <!-- <AppLoader /> -->
 </template>
 
 <style></style>
