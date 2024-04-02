@@ -34,14 +34,20 @@ export default {
         </div>
         <div class="card-body clearfix">
             <img v-if="project.image" :src="project.image" :alt="project.title" class="img-fluid float-start me-3">
+            <span class="badge" :style="{ backgroundColor: project.type?.color }">{{ project.type?.label }}</span>
             <p class="card-text">{{ isDetail ? project.content : abstract }}</p>
+        </div>
+        <div class="d-flex justify-content-end gap-2 mb-3 px-3" v-if="project.technologies?.length">
+            <span class="badge rounded-pill" :class="`text-bg-${tech.color}`" v-for="tech in project.technologies"
+                :key="tech.id">{{ tech.label }}</span>
         </div>
         <div class="d-flex justify-content-between mx-3">
             <address> By {{ project.author ? project.author.name : 'Anonimo' }}</address>
             <small>Pubblicato il {{ publicationDate }}</small>
         </div>
         <div class="card-footer d-flex justify-content-center" v-if="!isDetail">
-            <RouterLink class="btn btn-primary" :to="{ name: 'project-detail', params: { id: project.id } }">Scopri di
+            <RouterLink class="btn btn-primary" :to="{ name: 'project-detail', params: { slug: project.slug } }">Scopri
+                di
                 più
             </RouterLink>
         </div>

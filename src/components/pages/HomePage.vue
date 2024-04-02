@@ -2,6 +2,8 @@
 import AppAlert from '../AppAlert.vue';
 import ProjectList from '../projects/ProjectList.vue';
 import axios from 'axios';
+import { store } from '../../data/store';
+
 const endpoint = 'http://localhost:8000/api/projects/';
 
 export default {
@@ -12,13 +14,13 @@ export default {
             data: [],
             link: [],
         },
-        isLoading: false,
         isAlertOpen: false,
+        store
     }),
     methods: {
         fetchProjects(endpoint) {
             if (!endpoint) endpoint = 'http://localhost:8000/api/projects/';
-            this.isLoading = true;
+            store.isLoading = true;
             axios.get(endpoint).then(res => {
                 const { data, links } = res.data;
                 this.projects = { data, links };
@@ -28,7 +30,7 @@ export default {
                 console.error(err);
                 this.isAlertOpen = true;
             }).then(() => {
-                this.isLoading = false;
+                store.isLoading = false;
             })
         },
         closeErrorAlert() {
@@ -45,8 +47,7 @@ export default {
 <template>
     <h1 class="text-center py-3">I miei progetti</h1>
     <AppAlert :show="isAlertOpen" @close="closeErrorAlert" />
-    <AppLoader v-if="isLoading" />
-    <div v-else>
+    <div v-if="!store.isLoading">
         <ProjectList :projects="projects.data" :isDetail="false" />
 
         <!-- BasePagination -->
