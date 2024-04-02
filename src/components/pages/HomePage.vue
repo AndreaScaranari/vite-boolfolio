@@ -43,7 +43,7 @@ export default {
 </script>
 
 <template>
-    <h1 class="text-center py-3">TEST</h1>
+    <h1 class="text-center py-3">I miei progetti</h1>
     <AppAlert :show="isAlertOpen" @close="closeErrorAlert" />
     <AppLoader v-if="isLoading" />
     <div v-else>

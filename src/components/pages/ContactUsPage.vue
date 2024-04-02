@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-    <h1 class="text-center">Mettiti in contatto!</h1>
+    <h1 class="text-center py-3">Mettiti in contatto!</h1>
 </template>
 
 <style></style>
