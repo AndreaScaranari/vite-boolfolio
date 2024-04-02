@@ -1,11 +1,12 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
+import ProjectList from './components/projects/ProjectList.vue';
 import axios from 'axios';
 const endpoint = 'http://localhost:8000/api/projects/';
 
 export default {
     name: 'vite-boolfoglio',
-    components: { AppHeader },
+    components: { AppHeader, ProjectList },
     data: () => ({
         projects: []
     }),
@@ -28,11 +29,8 @@ export default {
         <AppHeader />
         <main>
             <h1 class="text-center py-3">TEST</h1>
-            <ul>
-                <li v-for="project in projects" :key="project.id">
-                    <strong v-text="project.title"></strong>
-                </li>
-            </ul>
+
+            <ProjectList :projects="projects" />
         </main>
     </div>
 </template>
