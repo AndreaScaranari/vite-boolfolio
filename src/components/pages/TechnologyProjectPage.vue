@@ -30,6 +30,13 @@ export default {
                 })
         }
     },
+    watch: {
+        '$route'(to, from) {
+            if (to.params.slug !== from.params.slug) {
+                this.fetchProjects();
+            }
+        }
+    },
     created() {
         this.fetchProjects();
     }
